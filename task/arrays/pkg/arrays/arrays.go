@@ -2,6 +2,7 @@ package arrays
 
 import (
 	"errors"
+	"math/rand"
 )
 
 var matrix = [2][3]int{
@@ -97,6 +98,14 @@ func Message(message []int) (res string, err error) {
 			err = errors.New("out of range")
 		}
 		res += letters[v]
+	}
+
+	return
+}
+
+func RandArray(n int) (res []int) {
+	for i := 0; i < n; i++ {
+		res = append(res, rand.Intn(n))
 	}
 
 	return
