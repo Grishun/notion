@@ -1,6 +1,7 @@
 package pracrice
 
 import (
+	"errors"
 	"notion/task/arrays/pkg/arrays"
 )
 
@@ -35,4 +36,16 @@ func Obnulyator(arr []int) []int {
 	}
 
 	return arr
+}
+
+func Insert(arr []int, value, index int) (res []int, err error) {
+
+	if index < 0 || index > len(arr) {
+		return []int{}, errors.New("error")
+	}
+	res = append(res, arr[:index]...)
+	res = append(res, value)
+	res = append(res, arr[index:]...)
+
+	return res, nil
 }
