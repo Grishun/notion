@@ -1,8 +1,8 @@
 package pracrice
 
 import (
-	"errors"
 	"notion/task/arrays/pkg/arrays"
+	"sort"
 )
 
 // hard practice: This func searches for min & max values in an array
@@ -38,14 +38,77 @@ func Obnulyator(arr []int) []int {
 	return arr
 }
 
-func Insert(arr []int, value, index int) (res []int, err error) {
+func InsertionV1(arr []int, value, index int) []int {
 
-	if index < 0 || index > len(arr) {
-		return []int{}, errors.New("error")
+	return append(arr[:index], append([]int{value}, arr[index:]...)...)
+}
+
+func InsertionV2(arr []int, value, index int) []int {
+	arr = append(arr, 0)
+
+	copy(arr[index+1:], arr[index:len(arr)-1])
+
+	arr[index] = value
+
+	return arr
+}
+
+// This func counts how many times the value appears in the array
+func CountValues(arr []int, value int) int {
+	counter := 0
+	for _, num := range arr {
+		if num == value {
+			counter++
+		}
 	}
-	res = append(res, arr[:index]...)
-	res = append(res, value)
-	res = append(res, arr[index:]...)
 
-	return res, nil
+	return counter
+}
+
+func RemoveByIndex(arr []int, index int) []int {
+	if index < 0 || index > len(arr)-1 {
+		return arr
+	}
+	return append(arr[:index], arr[index+1:]...)
+}
+
+func RemoveByValue(arr []int, value int) (res []int) {
+	for _, num := range arr {
+		if num != value {
+			res = append(res, num)
+		}
+	}
+
+	return
+}
+
+func RemoveRepeating(arr []int) []int {
+	for i, v := range arr {
+		if CountValues(arr, v) > 1 {
+			arr = RemoveByValue(arr, v)
+			arr = InsertionV1(arr, v, i)
+		}
+	}
+
+	return arr
+}
+
+//func UniteArrays()
+
+func MergeArrays(arr1, arr2 []int) (res []int) {
+	sort.Ints(arr1)
+	sort.Ints(arr2)
+
+	i, j := 0, 0
+	for i < len(arr1) && j < len(arr2) {
+		if arr1[i] < arr2[j] {
+			res = append(res, arr1[i])
+			i++
+		} else {
+			res = append(res, arr2[j])
+			j++
+		}
+	}
+
+	return
 }

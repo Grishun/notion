@@ -6,8 +6,9 @@ import (
 )
 
 func main() {
-	arr := []int{1, -1, 2, 3, 4}
-	//fmt.Println(pracrice.Obnulyator(arr))
+	arr1 := []int{1, 1, 3, 5, 1, 7}
+	//arr2 := []int{2, 4, 6}
 
-	fmt.Println(pracrice.InsertV1(arr, 2, 1))
+	fmt.Println(pracrice.RemoveRepeating(arr1))
+
 }
