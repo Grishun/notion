@@ -7,11 +7,6 @@ import (
 	"sort"
 )
 
-var matrix = [2][3]int{
-	{1, 2, 3},
-	{4, 5, 6},
-}
-
 // This func returns max element in an array
 func Max(arr []int) int {
 
@@ -47,7 +42,7 @@ func MidVal(arr []int) int {
 	return sum / len(arr)
 }
 
-// func takes an array and a value,
+// IndexOfVal - func takes an array and a value,
 // and returns index of the value in the array
 // If array doesn't contain the value, func returnes an error
 func IndexOfVal(arr []int, value int) (res int, err error) {
@@ -59,7 +54,7 @@ func IndexOfVal(arr []int, value int) (res int, err error) {
 			break
 		}
 	}
-	if flag != true {
+	if !flag {
 		return 0, errors.New("no value")
 	}
 
@@ -141,7 +136,7 @@ func RemoveRepeatingV2(arr []int) []int {
 	result := []int{}
 
 	for _, v := range arr {
-		if encountered[v] == false {
+		if !encountered[v] {
 			encountered[v] = true
 			result = append(result, v)
 		}
@@ -153,7 +148,6 @@ func RemoveRepeatingV2(arr []int) []int {
 // this func unites ellements from2 arrays
 // Example
 // UniteArrays([1,2,3,4], [2,4,6,8]) -> [1,2,3,4,6,8]
-
 func UniteArrays(arr1, arr2 []int) (res []int) {
 	res = append(res, arr1...)
 
@@ -177,14 +171,11 @@ func MergeArrays(arr1, arr2 []int) (res []int) {
 	sort.Ints(arr1)
 	sort.Ints(arr2)
 
-	i, j := 0, 0
-	for i < len(arr1) && j < len(arr2) {
+	for i, j := 0, 0; i < len(arr1) && j < len(arr2); i, j = i+1, j+1 {
 		if arr1[i] < arr2[j] {
 			res = append(res, arr1[i])
-			i++
 		} else {
 			res = append(res, arr2[j])
-			j++
 		}
 	}
 
