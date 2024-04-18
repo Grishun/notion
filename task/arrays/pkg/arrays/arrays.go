@@ -3,6 +3,8 @@ package arrays
 import (
 	"errors"
 	"math/rand"
+	"notion/task/Algorithms/Searching/pkg/search"
+	"sort"
 )
 
 var matrix = [2][3]int{
@@ -75,29 +77,115 @@ func PreMaxV2(arr []int) int {
 	return Max(arr2)
 }
 
-// This func counts how many times a number appears in an array
-func Count(arr []int, value int) (res int) {
-	for _, v := range arr {
-		if v == value {
-			res++
+func RemoveByIndex(arr []int, index int) []int {
+	if index < 0 || index > len(arr)-1 {
+		return arr
+	}
+	return append(arr[:index], arr[index+1:]...)
+}
+
+func RemoveByValue(arr []int, value int) (res []int) {
+	for _, num := range arr {
+		if num != value {
+			res = append(res, num)
+		}
+	}
+
+	return
+}
+
+func Insert(arr []int, value, index int) []int {
+
+	return append(arr[:index], append([]int{value}, arr[index:]...)...)
+}
+
+func InsertInOrderedArr(arr []int, value int) []int {
+	index := sort.Search(len(arr), func(i int) bool {
+		return value < arr[i]
+	})
+
+	return Insert(arr, value, index)
+}
+
+// This func counts how many times the value appears in the array
+
+func CountValues(arr []int, value int) int {
+	counter := 0
+	for _, num := range arr {
+		if num == value {
+			counter++
+		}
+	}
+
+	return counter
+}
+
+func RemoveRepeating(arr []int) []int {
+	res := make([]int, 0)
+	res = append(res, arr...)
+
+	for i, v := range res {
+		if CountValues(res, v) > 1 {
+			res = RemoveByIndex(res, i)
 		}
 	}
 
 	return res
 }
 
-var letters = []string{"а", "б", "в", "г", "д", "е", "ё", "ж", "з",
-	"и", "й", "к", "л", "м", "н", "о", "п", "р",
-	"с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ",
-	"ъ", "ы", "ь", "э", "ю", "я", "!", ",", " "}
+func RemoveRepeatingV2(arr []int) []int {
+	if len(arr) == 0 {
+		return []int{}
+	}
+	encountered := map[int]bool{}
+	result := []int{}
 
-func Message(message []int) (res string, err error) {
-
-	for _, v := range message {
-		if v > 35 || v < 0 {
-			err = errors.New("out of range")
+	for _, v := range arr {
+		if encountered[v] == false {
+			encountered[v] = true
+			result = append(result, v)
 		}
-		res += letters[v]
+	}
+
+	return result
+}
+
+// this func unites ellements from2 arrays
+// Example
+// UniteArrays([1,2,3,4], [2,4,6,8]) -> [1,2,3,4,6,8]
+
+func UniteArrays(arr1, arr2 []int) (res []int) {
+	res = append(res, arr1...)
+
+	for _, v := range arr2 {
+		_, err := search.BinSearch(arr1, v)
+
+		if err != nil {
+			res = InsertInOrderedArr(res, v)
+		}
+	}
+
+	return
+}
+
+// this func merges 2 ordered arrays, without breaking ordering
+// Example
+// MergeArrays([2,4,6], [1,3,5]) -> [1,2,3,4,5]
+// MergeArrays([1,2,3,4], [2,4,6,8]) -. [1,2,2,3,4,4,6,8]
+
+func MergeArrays(arr1, arr2 []int) (res []int) {
+	sort.Ints(arr1)
+	sort.Ints(arr2)
+
+	i, j := 0, 0
+	for i < len(arr1) && j < len(arr2) {
+		if arr1[i] < arr2[j] {
+			res = append(res, arr1[i])
+			i++
+		} else {
+			res = append(res, arr2[j])
+			j++
+		}
 	}
 
 	return

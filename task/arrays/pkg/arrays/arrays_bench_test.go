@@ -1,4 +1,4 @@
-package pracrice
+package arrays
 
 import (
 	"testing"
