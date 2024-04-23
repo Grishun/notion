@@ -1,6 +1,7 @@
 package cycles
 
 import (
+	"github.com/Grishun/problems/task/math/pkg/numbers"
 	"math"
 	"strconv"
 )
@@ -11,14 +12,13 @@ import (
 
 func CountDigits(num int) (evens, ods int) {
 
-	strNum := strconv.Itoa(num)
-
-	for _, v := range strNum {
-		if (int(v)-'0')%2 == 0 {
+	for i := 0; i < len(strconv.Itoa(num)); i++ {
+		if numbers.DigOfNum(uint64(num), uint64(i))%2 == 0 {
 			evens++
 		}
 	}
-	return evens, len(strNum) - evens
+
+	return evens, len(strconv.Itoa(num)) - evens
 }
 
 func IsPrime(num int) bool {
