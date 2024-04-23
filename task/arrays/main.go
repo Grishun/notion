@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	arr := []int{1, 1, 2, 3}
-	fmt.Println(arrays.RemoveRepeating(arr))
+	arr1 := []int{1, 2, 3, -1, 5, 4}
+	arr2 := []int{5, 1, 2, 3, 4, -1}
+	fmt.Println(arrays.MergeArrays(arr1, arr2))
 }

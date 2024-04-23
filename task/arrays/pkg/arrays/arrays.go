@@ -79,14 +79,15 @@ func RemoveByIndex(arr []int, index int) []int {
 	return append(arr[:index], arr[index+1:]...)
 }
 
-func RemoveByValueV1(arr []int, value int) (res []int) {
+func RemoveByValueV1(arr []int, value int) []int {
+	res := arr[:0]
 	for _, num := range arr {
 		if num != value {
 			res = append(res, num)
 		}
 	}
 
-	return
+	return res
 }
 
 func RemoveByValueV2(arr []int, value int) []int {
@@ -181,13 +182,19 @@ func MergeArrays(arr1, arr2 []int) (res []int) {
 	sort.Ints(arr1)
 	sort.Ints(arr2)
 
-	for i, j := 0, 0; i < len(arr1) && j < len(arr2); i, j = i+1, j+1 {
+	i, j := 0, 0
+	for i < len(arr1) && j < len(arr2) {
 		if arr1[i] < arr2[j] {
 			res = append(res, arr1[i])
+			i++
 		} else {
 			res = append(res, arr2[j])
+			j++
 		}
 	}
+
+	res = append(res, arr1[i:]...)
+	res = append(res, arr2[j:]...)
 
 	return
 }

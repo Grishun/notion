@@ -14,6 +14,14 @@ var testSlice = func(n int) (res []int) {
 	return
 }
 
+var numbers = func(n int) (res []int) {
+	for i := 0; i < n; i++ {
+		res = append(res, i)
+	}
+
+	return
+}
+
 func TestRemoveRepeating(t *testing.T) {
 	testCases := []struct {
 		input       []int
@@ -41,6 +49,32 @@ func TestRemoveRepeating(t *testing.T) {
 			require.Len(t, removed, testCase.expectedLen)
 			require.Equal(t, testCase.expectedCap, cap(removed))
 			require.Equal(t, testCase.expected, RemoveRepeatingV2(testCase.input))
+		})
+	}
+}
+
+func TestMergeArrays(t *testing.T) {
+	type input struct {
+		arr1 []int
+		arr2 []int
+	}
+
+	testCases := []struct {
+		inp      input
+		expected []int
+	}{
+		{
+			inp: input{
+				arr1: numbers(10),
+				arr2: numbers(10),
+			},
+			expected: testSlice(10),
+		},
+	}
+
+	for i, testCase := range testCases {
+		t.Run("case_"+strconv.Itoa(i), func(t *testing.T) {
+			require.Equal(t, testCase.expected, MergeArrays(testCase.inp.arr1, testCase.inp.arr2))
 		})
 	}
 }
