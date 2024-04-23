@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"notion/task/Algorithms/sorting/pkg/sort"
+	"notion/task/Algorithms/Searching/pkg/search"
 )
 
 func main() {
-	arr := []int{3, 9, 6, 1, 4}
-	fmt.Println(sort.QuickSort(arr))
+	arr := []int{}
+	fmt.Println(search.BinSearch(arr, 0))
 }

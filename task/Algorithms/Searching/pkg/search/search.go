@@ -7,6 +7,7 @@ func LineSearch(arr []int, value int) (index int, err error) {
 	for i := 0; i < len(arr); i++ {
 		if arr[i] == value {
 			index = i
+			break
 		}
 	}
 
@@ -18,6 +19,10 @@ func LineSearch(arr []int, value int) (index int, err error) {
 }
 
 func BinSearch(arr []int, value int) (index int, err error) {
+	if len(arr) < 1 {
+		return 0, errors.New("empty array")
+	}
+
 	low := 0
 	high := len(arr) - 1
 	mid := (low + high) / 2

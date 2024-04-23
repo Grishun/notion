@@ -79,7 +79,7 @@ func RemoveByIndex(arr []int, index int) []int {
 	return append(arr[:index], arr[index+1:]...)
 }
 
-func RemoveByValue(arr []int, value int) (res []int) {
+func RemoveByValueV1(arr []int, value int) (res []int) {
 	for _, num := range arr {
 		if num != value {
 			res = append(res, num)
@@ -87,6 +87,16 @@ func RemoveByValue(arr []int, value int) (res []int) {
 	}
 
 	return
+}
+
+func RemoveByValueV2(arr []int, value int) []int {
+	for i, num := range arr {
+		if num == value {
+			arr = RemoveByIndex(arr, i)
+		}
+	}
+
+	return arr
 }
 
 func Insert(arr []int, value, index int) []int {
