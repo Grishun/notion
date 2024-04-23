@@ -36,10 +36,10 @@ func BinSearch(arr []int, value int) (index int, err error) {
 		mid = (low + high) / 2
 
 		if low > high {
-			mid, err = 0, errors.New("no value")
+			return 0, errors.New("no value")
 			break
 		}
 	}
 
-	return mid, err
+	return mid, nil
 }
