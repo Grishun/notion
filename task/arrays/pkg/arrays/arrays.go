@@ -7,7 +7,7 @@ import (
 	"sort"
 )
 
-// This func returns max element in an array
+// Max returns max element in an array
 func Max(arr []int) int {
 
 	max := arr[0]
@@ -20,7 +20,7 @@ func Max(arr []int) int {
 	return max
 }
 
-// This func returns min element in an array
+// Min returns min element in an array
 func Min(arr []int) int {
 
 	min := arr[0]
@@ -33,7 +33,7 @@ func Min(arr []int) int {
 	return min
 }
 
-// This func returnes middle value of all numbers in the array
+// MidVal returns middle value of all numbers in the array
 func MidVal(arr []int) int {
 	var sum int
 	for i := 0; i < len(arr); i++ {
@@ -61,17 +61,6 @@ func IndexOfVal(arr []int, value int) (res int, err error) {
 	return
 }
 
-func PreMaxV2(arr []int) int {
-	var arr2 []int
-	for _, v := range arr {
-		if v != Max(arr) {
-			arr2 = append(arr2, v)
-		}
-	}
-
-	return Max(arr2)
-}
-
 func RemoveByIndex(arr []int, index int) []int {
 	if index < 0 || index > len(arr)-1 {
 		return arr
@@ -79,8 +68,8 @@ func RemoveByIndex(arr []int, index int) []int {
 	return append(arr[:index], arr[index+1:]...)
 }
 
-func RemoveByValueV1(arr []int, value int) []int {
-	res := arr[:0]
+func RemoveByValueV1(arr []int, value int) (res []int) {
+	res = arr[:0]
 	for _, num := range arr {
 		if num != value {
 			res = append(res, num)
@@ -90,21 +79,14 @@ func RemoveByValueV1(arr []int, value int) []int {
 	return res
 }
 
-func RemoveByValueV2(arr []int, value int) []int {
-	for i, num := range arr {
-		if num == value {
-			arr = RemoveByIndex(arr, i)
-		}
-	}
-
-	return arr
-}
-
+// Insert inserts value to the array, to the index
+// Example
+// Insert([1, 3, 4], 2, 1) -> [1, 2, 3, 4]
 func Insert(arr []int, value, index int) []int {
-
 	return append(arr[:index], append([]int{value}, arr[index:]...)...)
 }
 
+// InsertInOrderedArr inserts value in ordered array and doesn't break the orderliness
 func InsertInOrderedArr(arr []int, value int) []int {
 	index := sort.Search(len(arr), func(i int) bool {
 		return value < arr[i]
@@ -113,8 +95,7 @@ func InsertInOrderedArr(arr []int, value int) []int {
 	return Insert(arr, value, index)
 }
 
-// This func counts how many times the value appears in the array
-
+// CountValues counts how many times the value appears in the array
 func CountValues(arr []int, value int) int {
 	counter := 0
 	for _, num := range arr {
@@ -156,7 +137,7 @@ func RemoveRepeatingV2(arr []int) []int {
 	return result
 }
 
-// this func unites ellements from2 arrays
+// UniteArrays unites elements from 2 arrays
 // Example
 // UniteArrays([1,2,3,4], [2,4,6,8]) -> [1,2,3,4,6,8]
 func UniteArrays(arr1, arr2 []int) (res []int) {
