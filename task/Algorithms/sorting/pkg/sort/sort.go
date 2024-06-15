@@ -1,18 +1,5 @@
 package sort
 
-func BubbleSort(nums []int) []int {
-
-	for i := 0; i < len(nums)-1; i++ {
-		for j := i + 1; j < len(nums); j++ {
-			if nums[i] > nums[j] {
-				nums[i], nums[j] = nums[j], nums[i]
-			}
-		}
-	}
-
-	return nums
-}
-
 func SelectionSort(nums []int) []int {
 
 	for i := 0; i < len(nums); i++ {
@@ -24,6 +11,18 @@ func SelectionSort(nums []int) []int {
 	}
 
 	return nums
+}
+
+func BubbleSort(arr []int) []int {
+	for i := 0; i < len(arr)-1; i++ {
+		for j := 0; j < len(arr)-1-i; j++ {
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+			}
+		}
+	}
+
+	return arr
 }
 
 func swap(arr []int, i, j int) {
@@ -64,4 +63,52 @@ func QuickSort(arr []int) []int {
 	quickSort(arr, 0, len(arr)-1)
 
 	return arr
+}
+
+func partitionV2(arr []int, low, high int) int {
+	pivot := arr[(low+high)/2]
+	i, j := low, high
+
+	for {
+
+		for arr[i] < pivot {
+			i++
+		}
+		for arr[j] > pivot {
+			j--
+		}
+
+		if i >= j {
+			break
+		}
+		swap(arr, i, j)
+
+		i, j = i+1, j-1
+
+	}
+
+	return j
+}
+
+func quickSortV2(arr []int, low, high int) {
+	if low < high {
+		pi := partitionV2(arr, low, high)
+		quickSortV2(arr, low, pi)
+		quickSortV2(arr, pi+1, high)
+	}
+}
+
+func QuickSortV2(arr []int) []int {
+	quickSortV2(arr, 0, len(arr)-1)
+
+	return arr
+}
+func IsSorted(arr []int) bool {
+	for i := 0; i < len(arr)-1; i++ {
+		if arr[i] > arr[i+1] {
+			return false
+		}
+	}
+
+	return true
 }

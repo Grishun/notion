@@ -206,3 +206,21 @@ func RandArray(n int) (res []int) {
 
 	return
 }
+
+func OrderedArray(n int) []int {
+	ordered := make([]int, n)
+	for i := 0; i < n; i++ {
+		ordered = append(ordered, i)
+	}
+
+	return ordered
+}
+
+func InversedArray(n int) []int {
+	inversed := make([]int, n)
+	for i := n - 1; i < 0; i-- {
+		inversed = append(inversed, i)
+	}
+
+	return inversed
+}

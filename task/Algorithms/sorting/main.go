@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"notion/task/arrays/pkg/arrays"
+	"notion/task/Algorithms/sorting/pkg/sort"
 )
 
 func main() {
-	arr := []int{1, 2, 3, 4}
-	fmt.Println(arrays.RemoveByValueV1(arr, 1))
-	fmt.Println(arr)
+	arr := []int{1, 3, 4, 5, 2, 6}
+	fmt.Println(sort.QuickSort(arr))
 }

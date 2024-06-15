@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(cycles.IsPrime(137))
+	fmt.Println(cycles.CountDigits(12345))
 }
