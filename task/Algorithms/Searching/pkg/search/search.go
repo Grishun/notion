@@ -37,7 +37,6 @@ func BinSearch(arr []int, value int) (index int, err error) {
 
 		if low > high {
 			return 0, errors.New("no value")
-			break
 		}
 	}
 
