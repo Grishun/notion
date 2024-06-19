@@ -10,16 +10,16 @@ import (
 // CountDigits returns number of even and odd digits in a number
 // Example
 // CountDigit(123) -> 1, 2
-func CountDigits(num int) (evens, ods int) {
-
-	for i := 0; i < len(strconv.Itoa(num)); i++ {
-		if numbers.DigOfNum(uint64(num), uint64(i))%2 == 0 {
-			evens++
-		}
-	}
-
-	return evens, len(strconv.Itoa(num)) - evens
-}
+//func CountDigits(num int) (evens, ods int) {
+//
+//	for i := 0; i < len(strconv.Itoa(num)); i++ {
+//		if numbers.DigOfNum(uint64(num), uint64(i))%2 == 0 {
+//			evens++
+//		}
+//	}
+//
+//	return evens, len(strconv.Itoa(num)) - evens
+//}
 
 // RemoveDigs removes the digit from number
 // Example
@@ -105,14 +105,14 @@ func PrimeNums(n int) (res []int) {
 	return
 }
 
-func DecompNums(num int) (divs []int) {
+func DecompNums(num uint64) (divs []int) {
 
-	for i := 1; i*i <= num; i++ {
-		if num%i == 0 {
+	for i := 1; i*i <= int(num); i++ {
+		if int(num)%i == 0 {
 			divs = append(divs, i)
 
-			if i != num/i {
-				divs = append(divs, num/i)
+			if i != int(num)/i {
+				divs = append(divs, int(num)/i)
 			}
 		}
 	}
@@ -127,8 +127,8 @@ func PerfectNums(n int) (res []int) {
 
 	for i := 6; i < n; i++ {
 		sumOfDivs := 0
-		for j := 0; j < len(DecompNums(i))-1; j++ {
-			sumOfDivs += DecompNums(i)[j]
+		for j := 0; j < len(DecompNums(uint64(i)))-1; j++ {
+			sumOfDivs += DecompNums(uint64(i))[j]
 		}
 
 		if sumOfDivs == i {
@@ -138,3 +138,21 @@ func PerfectNums(n int) (res []int) {
 
 	return
 }
+
+//func Sirakuza(num int) {
+//
+//	fmt.Printf("%d -> ", num)
+//
+//	for num != 2 {
+//		if num%2 == 0 {
+//			num /= 2
+//			fmt.Printf("%d -> ", num)
+//		} else {
+//			num = num*3 + 1
+//			fmt.Printf("%d -> ", num)
+//		}
+//	}
+//
+//	fmt.Printf("1")
+//
+//}
