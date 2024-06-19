@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(cycles.CountDigits(12345))
+	fmt.Println(cycles.DecompNums(15))
 }
