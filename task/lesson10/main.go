@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(cycles.DecompNums(15))
+	fmt.Println(cycles.PerfectNums(10000))
 }

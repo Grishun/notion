@@ -122,3 +122,19 @@ func DecompNums(num int) (divs []int) {
 	return
 
 }
+
+func PerfectNums(n int) (res []int) {
+
+	for i := 6; i < n; i++ {
+		sumOfDivs := 0
+		for j := 0; j < len(DecompNums(i))-1; j++ {
+			sumOfDivs += DecompNums(i)[j]
+		}
+
+		if sumOfDivs == i {
+			res = append(res, i)
+		}
+	}
+
+	return
+}
