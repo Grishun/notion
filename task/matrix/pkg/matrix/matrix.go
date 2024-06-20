@@ -71,3 +71,13 @@ func GenerateMatrix(matrix Matrix, formula func(i, j int) int) Matrix {
 func EnumerateMatrix(matrix Matrix, i, j int) int {
 	return matrix.High*i + j
 }
+
+func SumOfElements(matrix Matrix) (res int) {
+	for i, _ := range matrix.Matrix {
+		for _, v := range matrix.Matrix[i] {
+			res += v
+		}
+	}
+
+	return
+}
