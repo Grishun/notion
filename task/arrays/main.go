@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	arr := []int{1, 2, 2, 2, 3}
-	fmt.Println(arrays.RemoveRepeating(arr))
+
+	fmt.Println(arrays.UniteArrays([]int{1, 2, 3, 4}, []int{1, 3, 5, 7}))
 }
