@@ -73,7 +73,7 @@ func EnumerateMatrix(matrix Matrix, i, j int) int {
 }
 
 func SumOfElements(matrix Matrix) (res int) {
-	for i, _ := range matrix.Matrix {
+	for i := range matrix.Matrix {
 		for _, v := range matrix.Matrix[i] {
 			res += v
 		}

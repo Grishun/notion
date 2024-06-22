@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"testing/quick"
+	"notion/task/lesson10/cycles"
 )
 
 func main() {
-	fmt.Println(:quick.Check())
+	fmt.Println(cycles.PerfectNums(1000))
 }

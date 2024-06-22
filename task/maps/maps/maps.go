@@ -1,47 +1,49 @@
 package maps
 
-import "notion/task/arrays/pkg/arrays"
+import (
+	"math"
+	"notion/task/arrays/pkg/arrays"
+)
 
-var test = map[int]bool{}
-
-func Set(arr []int) []int {
-	seen := make(map[int]struct{})
-
-	for i, v := range arr {
-
-		_, entry := seen[v]
-
-		if entry {
-			arr[i] = 0
-		} else {
-			seen[v] = struct{}{}
-		}
-	}
-
-	return arr
-
-}
+//func Set(arr []int) []int {
+//	seen := make(map[int]struct{})
+//
+//	for i, v := range arr {
+//
+//		_, entry := seen[v]
+//
+//		if entry {
+//			arr[i] = 0
+//		} else {
+//			seen[v] = struct{}{}
+//		}
+//	}
+//
+//	return arr
+//
+//}
 
 // Unique возвращает новый массив, содержащий только уникальные значения из исходного массива
-func Unique(arr []int) (res []int) {
+func Unique(arr []int) []int {
+
+	uniqueArr := arr[:0]
+
 	seen := make(map[int]struct{})
 
 	for _, v := range arr {
+
 		_, entry := seen[v]
 
 		if !entry {
 			seen[v] = struct{}{}
-			res = append(res, v)
+			uniqueArr = append(uniqueArr, v)
 		}
+
 	}
 
-	return res
-}
+	arr = uniqueArr
 
-var ages = map[string]int{
-	"dad":  44,
-	"mom":  40,
-	"lexa": 24,
+	return arr
 }
 
 var (
@@ -98,23 +100,24 @@ func MergeMaps(map1, map2 map[string]int) map[string]int {
 
 func MostFrequentEl(arr []int) int {
 
-	seen := make(map[int]int)
+	entrys := map[int]int{}
 
 	for _, num := range arr {
-		seen[num]++
+		entrys[num]++
 	}
 
-	maxCount := 0
-	element := 0
+	maxEntrys := 0
+	mostfreq := 0
 
-	for key, value := range seen {
-		if value > maxCount {
-			maxCount = value
-			element = key
+	for key, value := range entrys {
+		if value > maxEntrys {
+			maxEntrys = value
+			mostfreq = key
 		}
 	}
 
-	return element
+	return mostfreq
+
 }
 
 func MiddleMarks(marks map[string][]int) map[string]int {
@@ -128,8 +131,7 @@ func MiddleMarks(marks map[string][]int) map[string]int {
 	return midMarks
 }
 
-// https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/description/
-
+// SmallerNumbersThanCurrent https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/description/
 func SmallerNumbersThanCurrent(nums []int) (res []int) {
 
 	smallerNums := map[int]int{}
@@ -154,4 +156,45 @@ func SmallerNumbersThanCurrent(nums []int) (res []int) {
 
 	return
 
+}
+
+// Task https://leetcode.com/problems/number-of-good-pairs/description/
+func Task(nums []int) int {
+
+	isGood := func(arr []int, i, j int) bool {
+		return arr[i] == arr[j] && i < j
+	}
+
+	goodPairs := 0
+
+	for i := 0; i < len(nums)-1; i++ {
+		for j := 0; j < len(nums)-1-i; j++ {
+			if isGood(nums, i, j+i+1) {
+				goodPairs++
+			}
+		}
+
+	}
+
+	return goodPairs
+}
+
+// Task2 https://leetcode.com/problems/count-number-of-pairs-with-absolute-difference-k/description/
+func Task2(nums []int, k int) int {
+
+	isCorrespondPair := func(arr []int, i, j int) bool {
+		return int(math.Abs(float64(arr[i])-float64(arr[j]))) == k
+	}
+
+	counter := 0
+
+	for i := 0; i < len(nums)-1; i++ {
+		for j := 0; j < len(nums)-1-i; j++ {
+			if isCorrespondPair(nums, i, i+j+1) {
+				counter++
+			}
+		}
+	}
+
+	return counter
 }

@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(maps.SmallerNumbersThanCurrent([]int{8, 1, 2, 2, 3}))
+	fmt.Println(maps.Task2([]int{3, 2, 1, 5, 4}, 2))
 }
