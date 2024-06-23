@@ -7,6 +7,6 @@ import (
 
 func main() {
 
-	fmt.Println(strs.CeasarCyfer("hworld jopa", 1))
+	fmt.Println(strs.CeasarCyfer("Ab Ba", 1))
 
 }
