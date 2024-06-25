@@ -24,7 +24,6 @@ import (
 // RemoveDigs removes the digit from number
 // Example
 // RemoveDigByIndex(12313, 3) -> 121
-=
 
 func RemoveDigs(num, dig int) (res int) {
 
