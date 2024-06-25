@@ -3,7 +3,6 @@ package arrays
 import (
 	"errors"
 	"math/rand"
-	"notion/task/Algorithms/Searching/pkg/search"
 	"sort"
 )
 
@@ -62,17 +61,16 @@ func IndexOfVal(arr []int, value int) (res int, err error) {
 }
 
 func RemoveByIndex(arr []int, index int) []int {
-	newArr := arr[:0]
-
-	for i := 0; i < len(arr); i++ {
-		if i != index {
-			newArr = append(newArr, arr[i])
-		}
+	if index > len(arr) || index < 0 {
+		return nil
 	}
 
-	arr = newArr
+	newArr := arr[:0]
 
-	return arr
+	newArr = append(newArr, arr[:index]...)
+	newArr = append(newArr, arr[index+1:]...)
+
+	return newArr
 }
 
 func RemoveByValue(arr []int, value int) []int {
@@ -140,17 +138,23 @@ func RemoveRepeating(arr []int) []int {
 // Example
 // UniteArrays([1,2,3,4], [2,4,6,8]) -> [1,2,3,4,6,8]
 func UniteArrays(arr1, arr2 []int) []int {
+	united := make(map[int]struct{})
 
-	res := make([]int, len(arr2), len(arr1)+len(arr2))
-	copy(res, arr2)
-
-	for _, value := range arr1 {
-		_, err := search.BinSearch(arr2, value)
-
-		if err != nil {
-			res = InsertInOrderedArr(res, value)
-		}
+	for _, num1 := range arr1 {
+		united[num1] = struct{}{}
 	}
+
+	for _, num2 := range arr2 {
+		united[num2] = struct{}{}
+
+	}
+
+	res := make([]int, 0, len(arr1)+len(arr2))
+	for key, _ := range united {
+		res = append(res, key)
+	}
+
+	sort.Ints(res)
 
 	return res
 }

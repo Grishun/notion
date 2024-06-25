@@ -23,29 +23,22 @@ import (
 
 // RemoveDigs removes the digit from number
 // Example
-// RemoveDigByIndex(12313) -> 121
+// RemoveDigByIndex(12313, 3) -> 121
+=
+
 func RemoveDigs(num, dig int) (res int) {
 
-	sign := 1
-	switch {
-	case num < 0:
-		num = -num
-		sign = -1
-	case dig < 0:
-		return
-	}
-
-	flag := 0
-	for i := 0; i < len(strconv.Itoa(num)); i++ {
-		if numbers.DigOfNum(uint64(num), uint64(i)) == uint64(dig) {
-			flag += 1
-			continue
+	digRank := 1
+	for num != 0 {
+		currentDig := num % 10
+		num /= 10
+		if currentDig != dig {
+			res += currentDig * digRank
+			digRank *= 10
 		}
-		res += int(numbers.DigOfNum(uint64(num), uint64(i)) * uint64(math.Pow10(i-flag)))
 	}
 
-	return res * sign
-
+	return
 }
 
 // RemoveDigByIndex removes the digit from number by index,
