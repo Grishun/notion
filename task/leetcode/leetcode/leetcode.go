@@ -39,16 +39,11 @@ func DistinctIntsV2(num1, num2 []int) [][]int {
 
 	res := make([][]int, 2)
 
-	copyArrToMap := func(arr []int) map[int]struct{} {
-		copied := make(map[int]struct{})
-		for _, v := range arr {
-			copied[v] = struct{}{}
-		}
+	Num2 := make(map[int]struct{})
 
-		return copied
+	for _, v := range num2 {
+		Num2[v] = struct{}{}
 	}
-
-	Num2 := copyArrToMap(num2)
 
 	for _, v := range num1 {
 

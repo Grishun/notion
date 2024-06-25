@@ -7,5 +7,5 @@ import (
 
 func main() {
 	arr := []int{1, 2, 2, 2, 3}
-	fmt.Println(arrays.RemoveRepeating(arr))
+	fmt.Println(arrays.RemoveByIndex(arr, 5))
 }

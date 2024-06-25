@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(cycles.PerfectNums(1000))
+	fmt.Println(cycles.RemoveDigsV2(-12313, 3))
 }

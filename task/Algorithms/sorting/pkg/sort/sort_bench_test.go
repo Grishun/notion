@@ -28,7 +28,7 @@ func BenchmarkBubbleSort1(b *testing.B) {
 	}
 }
 
-func BenchmarkGoSort1(b *testing.B) {
+func BenchmarkGoSort(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		sort.SliceStable(randArray(1000), func(i, j int) bool {
 			return i < j

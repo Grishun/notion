@@ -3,6 +3,7 @@ package arrays
 import (
 	"errors"
 	"math/rand"
+	"slices"
 	"sort"
 )
 
@@ -146,7 +147,6 @@ func UniteArrays(arr1, arr2 []int) []int {
 
 	for _, num2 := range arr2 {
 		united[num2] = struct{}{}
-
 	}
 
 	res := make([]int, 0, len(arr1)+len(arr2))
@@ -156,7 +156,7 @@ func UniteArrays(arr1, arr2 []int) []int {
 
 	sort.Ints(res)
 
-	return res
+	return slices.Clip(res)
 }
 
 // MergeArrays merges 2 ordered arrays, without breaking ordering
