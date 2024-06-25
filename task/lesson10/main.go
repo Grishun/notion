@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(cycles.RemoveDigsV2(-12313, 3))
+	fmt.Println(cycles.RemoveDigByIndex(1234, -2))
 }

@@ -1,10 +1,8 @@
 package cycles
 
 import (
-	"github.com/Grishun/problems/task/math/pkg/numbers"
 	"math"
 	"sort"
-	"strconv"
 )
 
 // CountDigits returns number of even and odd digits in a number
@@ -46,27 +44,10 @@ func RemoveDigs(num, dig int) (res int) {
 // RemoveDigByIndex(1234, 1) -> 124
 // RemoveDigByIndex(1234, 2) -> 134
 func RemoveDigByIndex(num, index int) (res int) {
-
-	sign := 1
-	switch {
-	case num < 0:
-		num = -num
-		sign = -1
-	case index < 0:
+	if index < 0 {
 		return
 	}
-
-	flag := 0
-	for i := 0; i < len(strconv.Itoa(num)); i++ {
-		if i == index {
-			flag = 1
-			continue
-		}
-
-		res += int(numbers.DigOfNum(uint64(num), uint64(i)) * uint64(math.Pow10(i-flag)))
-	}
-
-	return res * sign
+	return (num-(num%int(math.Pow10(index+1))))/10 + num%int(math.Pow10(index))
 }
 
 func PrimeNums(n int) (res []int) {
