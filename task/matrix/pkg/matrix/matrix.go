@@ -11,9 +11,8 @@ type Matrix struct {
 	High   int
 }
 
-// This func generates random int matrix,
+// RandMatrix func generates random int matrix,
 // with size you put in it
-
 func RandMatrix(matrix Matrix, n int) Matrix {
 	matrix.Matrix = make([][]int, matrix.Width)
 
@@ -44,22 +43,11 @@ func TableV2(matrix Matrix) {
 	}
 }
 
-func SymetricMatrix(matrix [][]int) [][]int {
-	for i := 0; i < len(matrix); i++ {
-		for j := 0; j < len(matrix[i]); j++ {
-			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-		}
-	}
-
-	return matrix
-}
-
-// This func generates matrix, and fills it with the values,
+// GenerateMatrix generates matrix, and fills it with the values,
 // you describe in the formula
 // Example:
 // GenerateMatrix([2][3]matrix, func(i,j int) {return 2^enumerate(matrix, i, j)})
 // -> [[1, 2, 4], [8, 16, 32]]
-
 func GenerateMatrix(matrix Matrix, formula func(i, j int) int) Matrix {
 	matrix.Matrix = make([][]int, matrix.Width)
 
@@ -73,14 +61,23 @@ func GenerateMatrix(matrix Matrix, formula func(i, j int) int) Matrix {
 	return matrix
 }
 
-// This func enumerates matrix from its (0,0) element by chain
+// EnumerateMatrix enumerates matrix from its (0,0) element by chain
 // to the last element.
 // Example:
 // matrix = [[1,2,3], [4,5,6], [7,8,9]]
 // EnumerateMatrix(matrix, 0, 0) -> 0
 // EnumerateMatrix(matrix, 1, 2) -> 5
 // EnumerateMatrix(matrix, 3, 3) -> 8
-
 func EnumerateMatrix(matrix Matrix, i, j int) int {
 	return matrix.High*i + j
+}
+
+func SumOfElements(matrix Matrix) (res int) {
+	for i := range matrix.Matrix {
+		for _, v := range matrix.Matrix[i] {
+			res += v
+		}
+	}
+
+	return
 }

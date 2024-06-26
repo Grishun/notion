@@ -3,11 +3,11 @@ package arrays
 import (
 	"errors"
 	"math/rand"
-	"notion/task/Algorithms/Searching/pkg/search"
+	"slices"
 	"sort"
 )
 
-// This func returns max element in an array
+// Max returns max element in an array
 func Max(arr []int) int {
 
 	max := arr[0]
@@ -20,7 +20,7 @@ func Max(arr []int) int {
 	return max
 }
 
-// This func returns min element in an array
+// Min returns min element in an array
 func Min(arr []int) int {
 
 	min := arr[0]
@@ -33,7 +33,7 @@ func Min(arr []int) int {
 	return min
 }
 
-// This func returnes middle value of all numbers in the array
+// MidVal returns middle value of all numbers in the array
 func MidVal(arr []int) int {
 	var sum int
 	for i := 0; i < len(arr); i++ {
@@ -44,7 +44,7 @@ func MidVal(arr []int) int {
 
 // IndexOfVal - func takes an array and a value,
 // and returns index of the value in the array
-// If array doesn't contain the value, func returnes an error
+// If array doesn't contain the value, func returns an error
 func IndexOfVal(arr []int, value int) (res int, err error) {
 	var flag bool
 	for i, num := range arr {
@@ -61,25 +61,20 @@ func IndexOfVal(arr []int, value int) (res int, err error) {
 	return
 }
 
-func PreMaxV2(arr []int) int {
-	var arr2 []int
-	for _, v := range arr {
-		if v != Max(arr) {
-			arr2 = append(arr2, v)
-		}
-	}
-
-	return Max(arr2)
-}
-
 func RemoveByIndex(arr []int, index int) []int {
-	if index < 0 || index > len(arr)-1 {
-		return arr
+	if index > len(arr) || index < 0 {
+		return nil
 	}
-	return append(arr[:index], arr[index+1:]...)
+
+	newArr := arr[:0]
+
+	newArr = append(newArr, arr[:index]...)
+	newArr = append(newArr, arr[index+1:]...)
+
+	return newArr
 }
 
-func RemoveByValueV1(arr []int, value int) []int {
+func RemoveByValue(arr []int, value int) []int {
 	res := arr[:0]
 	for _, num := range arr {
 		if num != value {
@@ -87,24 +82,22 @@ func RemoveByValueV1(arr []int, value int) []int {
 		}
 	}
 
-	return res
-}
-
-func RemoveByValueV2(arr []int, value int) []int {
-	for i, num := range arr {
-		if num == value {
-			arr = RemoveByIndex(arr, i)
-		}
-	}
+	arr = res
 
 	return arr
 }
 
+// Insert inserts value to the array, to the index
+// Example
+// Insert([1, 3, 4], 2, 1) -> [1, 2, 3, 4]
 func Insert(arr []int, value, index int) []int {
-
-	return append(arr[:index], append([]int{value}, arr[index:]...)...)
+	newArr := arr[:0]
+	newArr = append(arr[:index], append([]int{value}, arr[index:]...)...)
+	arr = newArr
+	return arr
 }
 
+// InsertInOrderedArr inserts value in ordered array and doesn't break the orderliness
 func InsertInOrderedArr(arr []int, value int) []int {
 	index := sort.Search(len(arr), func(i int) bool {
 		return value < arr[i]
@@ -113,33 +106,19 @@ func InsertInOrderedArr(arr []int, value int) []int {
 	return Insert(arr, value, index)
 }
 
-// This func counts how many times the value appears in the array
-
-func CountValues(arr []int, value int) int {
-	counter := 0
-	for _, num := range arr {
-		if num == value {
-			counter++
-		}
-	}
-
-	return counter
-}
+// CountValues counts how many times the value appears in the array
+//func CountValues(arr []int, value int) int {
+//	counter := 0
+//	for _, num := range arr {
+//		if num == value {
+//			counter++
+//		}
+//	}
+//
+//	return counter
+//}
 
 func RemoveRepeating(arr []int) []int {
-	res := make([]int, 0)
-	res = append(res, arr...)
-
-	for i, v := range res {
-		if CountValues(res, v) > 1 {
-			res = RemoveByIndex(res, i)
-		}
-	}
-
-	return res
-}
-
-func RemoveRepeatingV2(arr []int) []int {
 	if len(arr) == 0 {
 		return []int{}
 	}
@@ -156,28 +135,34 @@ func RemoveRepeatingV2(arr []int) []int {
 	return result
 }
 
-// this func unites ellements from2 arrays
+// UniteArrays unites elements from 2 arrays
 // Example
 // UniteArrays([1,2,3,4], [2,4,6,8]) -> [1,2,3,4,6,8]
-func UniteArrays(arr1, arr2 []int) (res []int) {
-	res = append(res, arr1...)
+func UniteArrays(arr1, arr2 []int) []int {
+	united := make(map[int]struct{})
 
-	for _, v := range arr2 {
-		_, err := search.BinSearch(arr1, v)
-
-		if err != nil {
-			res = InsertInOrderedArr(res, v)
-		}
+	for _, num1 := range arr1 {
+		united[num1] = struct{}{}
 	}
 
-	return
+	for _, num2 := range arr2 {
+		united[num2] = struct{}{}
+	}
+
+	res := make([]int, 0, len(arr1)+len(arr2))
+	for key, _ := range united {
+		res = append(res, key)
+	}
+
+	sort.Ints(res)
+
+	return slices.Clip(res)
 }
 
-// this func merges 2 ordered arrays, without breaking ordering
+// MergeArrays merges 2 ordered arrays, without breaking ordering
 // Example
 // MergeArrays([2,4,6], [1,3,5]) -> [1,2,3,4,5]
 // MergeArrays([1,2,3,4], [2,4,6,8]) -. [1,2,2,3,4,4,6,8]
-
 func MergeArrays(arr1, arr2 []int) (res []int) {
 	sort.Ints(arr1)
 	sort.Ints(arr2)
@@ -210,7 +195,7 @@ func RandArray(n int) (res []int) {
 func OrderedArray(n int) []int {
 	ordered := make([]int, n)
 	for i := 0; i < n; i++ {
-		ordered = append(ordered, i)
+		ordered[i] = i + 1
 	}
 
 	return ordered

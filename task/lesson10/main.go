@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(cycles.CountDigits(12345))
+	fmt.Println(cycles.RemoveDigByIndex(1234, -2))
 }
